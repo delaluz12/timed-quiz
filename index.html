@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,15 +9,43 @@
     <link rel="stylesheet" href="./assets/reset.css">
     <link rel="stylesheet" href="./assets/style.css">
 </head>
+
 <body>
     <!-- container for navigation that will hold link to view highscore page and timer -->
+    <nav>
+        <a href="./assets/highscores.html" id="displayScore">View Highscore</a>
+        <div class="timeDisplay"><span id="timer"> 60 </span>sec</div>
+    </nav>
 
 
-    <!-- container that will hold Quiz welcome, instructions and start button -->
+    <!-- Contianer that will hold all quiz contents -->
+    <div class="container">
+        <!-- container that will hold Quiz welcome, instructions and start button -->
+        <div class="start" id="welcomeScreen">
+            <h2> Welcome to timed quiz</h2>
+            <p>There are a total of 5 questions. You get 60 seconds to complete quiz. Each each wrong will deduct time. Correct answers will gain points. Final Score will be presented at the end of quiz or when time reaches zero. <br> Press start button to begin. </p>
+            <button id="startBtn">START</button>
+        </div>
 
-    <!-- container that will hold quiz questions and multiple choices and right/wrong div -->
+        <!-- container that will hold quiz questions and multiple choices and right/wrong div -->
+        <div class="hidden" id="questions">
+            <h2 id="question-header"> TESTING - question header</h2>
+            <div id="choices"></div>
+        </div>
 
-    <!-- container that will hold input for initals, display player score and submit button -->
+        <div class="hidden rightWrong" id="rightWrong"> TESTING - right or wrong div</div>
+
+        <!-- container that will hold input for initals, display player score and submit button -->
+        <div class="hidden" id="gameOver">
+            <h2>Game Over</h2>
+            <p> Your score is: <span id="finalScore"></span>points.</p>
+            <label for="initals">Enter Intials</label>
+            <input type="text" name="initals" id="initals">
+            <button id="submitBtn">submit</button>
+        </div>
+
+    </div>
     <script src="./assets/script.js"></script>
 </body>
+
 </html>
