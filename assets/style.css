@@ -33,6 +33,17 @@ button {
     cursor: pointer;
     
 }
+choiceButton {
+    display: inline-block;
+    margin: 1rem;
+    background-color: #96ceb4;
+    color: white;
+    border-radius: .5rem;
+    padding: 1px 5px;
+    border: none;
+    cursor: pointer;
+    
+}
 button:hover {
     background-color: 	#ffeead;
 
