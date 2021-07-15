@@ -78,13 +78,13 @@ function startTimer() {
 };
 
 //displayQuestions function --need parameter to pass in will not read this one only the one we pass in when we call it
-function displayQuestions(butthole) {
-   var currentQuestion = questions[butthole];
+function displayQuestions(i) {
+   var currentQuestion = questions[i];
    //display question-header
    questionHeaderEl.textContent = currentQuestion.header;
 
    //forEach loop to loop through generating all 4 choice btns
-   questions[butthole].choices.forEach(function (choice, i) {
+   questions[i].choices.forEach(function (choice, i) {
       var existingChoiceBtn = document.getElementById('choice-' + i);
       // before creating a button element
       // check if element exists by calling document.getElementById('choice-' + i)
