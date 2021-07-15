@@ -1,7 +1,6 @@
 //DOM elements
 var resetBtnEl = document.getElementById('resetBtn');
 var highscoresListEl = document.getElementById('highscores-list');
-console.log(highscoresListEl);
 
 function reset() {
     localStorage.clear();
