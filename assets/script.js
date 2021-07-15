@@ -35,19 +35,15 @@ var timerID;
 //DOM variables
 var welcomeScreen = document.getElementById('welcomeScreen');
 var questionsEl = document.getElementById('questions');
+var startBtnEl = document.getElementById('startBtn');
 var gameOverEl = document.getElementById('gameOver');
-var submitBtn = document.getElementById('submitBtn');
+var submitBtnEl = document.getElementById('submitBtn');
 var initialsEl = document.getElementById('initials');
 var questionHeaderEl = document.getElementById('question-header');
 var choicesEl = document.getElementById('choices');
 var rightWrongEl = document.getElementById('rightWrong');
-//Taking a timed code quiz - I am presented with a welcome screen with instructions
 
-//Once I am ready to start game I will click the start button
-//user clicks start button - to initate function to start game
-var startBtn = document.getElementById('startBtn');
-console.log(startBtn);
-startBtn.onclick = startGame;
+//Taking a timed code quiz - I am presented with a welcome screen with instructions
 
 //create startGame function 
 function startGame(e) {
@@ -127,7 +123,7 @@ function checkAnswer(e) {
       correctEl.textContent = "Correct!";
       //increment questionTracking to move to next question in index of array
       questionTracking++;
-      console.log(questionTracking);
+      // console.log(questionTracking);
       //check to see what questio user is on
       if (questionTracking < 5) {
          displayQuestions(questionTracking);
@@ -136,7 +132,13 @@ function checkAnswer(e) {
       }
    }
    else {
-      //decrement
+      //decrement time by 5 seconds each time user guesses wrong answer
+      time -= 5;
+      //check to make sure time does not go into the negatives when decrementing
+      if (time <0){
+         time =0;
+      };
+      //create DOM element for displaying rightWrong div that will alert user if they are right or wrong
       var incorrectEl = document.getElementById('rightWrong');
       incorrectEl.setAttribute('class', 'rightWrong');
       incorrectEl.textContent = "Wrong!";
@@ -158,59 +160,42 @@ function gameOver() {
 
 };
 
-//user enters initals and clicks submit btn - calls saveScore function
-submitBtn.onclick = saveScore;
-
-//saveScore function - saves score and initals to local storage pulls previous stored scores and loads highscore page
+//saveScore function - saves each new score and initals to local storage 
 function saveScore() {
+   event.preventDefault();
    //grab initals entered in input div --trim() spaces before and after input
-   var initials = initialsEl.value.trim();
-   console.log(initials);
+   var newInitials = initialsEl.value.trim();
+   console.log(newInitials);
    console.log (time);
-   var existingScores = JSON.parse(localStorage.getItem('playerScore'));
-   debugger
-   var playerScores = {
+
+   //object to store each new player score
+   var newScore = {
       score: time,
-      initials: initials,
+      initials: newInitials,
    };
-   if (!existingScores){
-      existingScores = [];
+   console.log(newScore);
 
-      localStorage.setItem('playerScore',JSON.stringify(existingScores));
-   } else {
-      existingScores.push(playerScores);
-      localStorage.setItem('playerScore',JSON.stringify(existingScores));
+   //check to see if there exists an array holding object scores in local storage if not then create an empty array
+   if (!localStorage.getItem('scores')){
+      localStorage.setItem('scores','[]');
    }
-   //set score to local storage
-   localStorage.setItem('playerScore', JSON.stringify(existingScores));
+   //else grab existing scores array to add on new score object -remeber to parse!!
+   var scores = JSON.parse(localStorage.getItem('scores'));
+   //pushing new score object to parsed array
+   scores.push(newScore);
 
-   //render to scores page 
-   renderScores();
+   //save updated scores to local storage -- remember to stringify 
+   localStorage.setItem('scores', JSON.stringify(scores));
+
+   //display highscores page
+   window.location.href="./assets/highscores.html";
+   
 };
 
-//function to render scores when submit button is click or when a tag view highscores is clicked
-function renderScores(playerScore){
-   //display last saved scores
-}
+//user clicks start button - to initate function to start game
+startBtnEl.onclick = startGame;
 
-//create timer function
-//When I click the start button welcome screen disappears
-    //Timer will begin
-    //I am presented with first question 
-        //If I answer correctly then 1pt will be added to score & I will be presented with the next question
-        //If I answer incorrectly I will be deducted time from the timer & then be presented with the next question
-    //When all questions are answered/cycled through or timer reaches zero 
-    //Then game is over
-    //When game is over then I am presented with input for initals & my score from correctly        answered questions
-    //Once I enter my initals I click the save button to save initals and score
-    //Then I am presented with my initials with score and two buttons
-        //button to "go back" to the welcome screen to restart game
-        //button to clear all scores
-
-//create timer 30 secs ==> 6 sec/question
-
-
-
-
+//user enters initals and clicks submit btn - calls saveScore function
+submitBtnEl.onclick = saveScore;
 
 
